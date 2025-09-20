@@ -12,7 +12,8 @@ function ArchivedPage() {
     );
 
     const handleSearch = (e) => {
-        setSearchParams({ keyword: e.target.value });
+        const query = e.target.value;
+        setSearchParams(query ? { keyword: query } : {});
     };
 
     return (
