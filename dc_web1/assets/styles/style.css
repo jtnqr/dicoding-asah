@@ -1,0 +1,118 @@
+body {
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    line-height: 1.6;
+    background: #f7f9fc;
+    color: #333;
+
+    /* Sticky footer setup */
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+header {
+    background: #4e73df;
+    color: white;
+    padding: 1rem;
+}
+
+nav {
+    margin-top: .5rem;
+}
+
+nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    gap: 1rem;
+}
+
+nav ul li {
+    position: relative;
+    cursor: pointer;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    transition: background 0.2s;
+}
+
+nav ul li:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+/* Dropdown */
+.dropdown-content {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background: white;
+    min-width: 140px;
+    border-radius: 6px;
+    overflow: hidden;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    z-index: 100;
+}
+
+.dropdown-content p {
+    margin: 0;
+    padding: 0.5rem 1rem;
+    color: #333;
+    cursor: pointer;
+}
+
+.dropdown-content p:hover {
+    background: #f1f1f1;
+}
+
+.show {
+    display: block;
+}
+
+main {
+    display: flex;
+    gap: 1rem;
+    padding: 1rem;
+    flex: 1;
+    /* penting supaya dorong footer ke bawah */
+}
+
+#content {
+    flex: 3;
+}
+
+aside {
+    flex: 1;
+    background: #eef2ff;
+    padding: 1rem;
+    text-align: center;
+    border-radius: 6px;
+}
+
+aside img {
+    max-width: 100%;
+    border-radius: 8px;
+}
+
+article {
+    background: white;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    border-radius: 6px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+footer {
+    text-align: center;
+    background: #4e73df;
+    color: white;
+    padding: 1rem;
+}
+
+/* Responsif */
+@media (max-width: 768px) {
+    main {
+        flex-direction: column;
+    }
+}

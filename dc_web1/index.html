@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Website Dicoding Submission 1</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/styles/style.css">
+</head>
+
+<body>
+    <header>
+        <h1>Belajar Web Dasar</h1>
+        <nav>
+            <ul>
+                <li>Home</li>
+                <li class="dropdown">
+                    Menu ▼
+                    <div class="dropdown-content">
+                        <p>Profil</p>
+                        <p>Kontak</p>
+                    </div>
+                </li>
+                <li id="about">About</li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <div id="content">
+            <article>
+                <h2>Artikel Pertama</h2>
+                <p>Ini adalah contoh artikel pertama. Konten bisa berisi apa saja sesuai tema.</p>
+            </article>
+
+            <article>
+                <h2>Artikel Kedua</h2>
+                <p>Ini artikel kedua. Bisa ditambahkan teks, gambar, atau informasi lain.</p>
+            </article>
+        </div>
+
+        <aside>
+            <h3>Biodata</h3>
+            <img src="assets/image/img1.png" alt="Foto Profil" style="width:350px; border-radius:8px;">
+            <p>Nama: Julius Wahyu Wiccaksono</p>
+            <p>
+                Social Links:
+                <a href="https://github.com/jtnqr/" target="_blank">Github</a> |
+                <a href="https://www.linkedin.com/in/julius-wahwic/" target="_blank">Linkedin</a>
+            </p>
+        </aside>
+
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Belajar Web Dasar</p>
+    </footer>
+
+    <script>
+        // Toggle dropdown ketika diklik
+        const dropdown = document.querySelector(".dropdown");
+        const dropdownContent = dropdown.querySelector(".dropdown-content");
+
+        dropdown.addEventListener("click", () => {
+            dropdownContent.classList.toggle("show");
+        });
+
+        // Klik di luar dropdown -> close
+        document.addEventListener("click", (e) => {
+            if (!dropdown.contains(e.target)) {
+                dropdownContent.classList.remove("show");
+            }
+        });
+
+        // Event JS kecil di menu About
+        document.getElementById("about").addEventListener("click", () => {
+            alert("Ini halaman About, masih coming soon 😁");
+        });
+    </script>
+</body>
+
+</html>
