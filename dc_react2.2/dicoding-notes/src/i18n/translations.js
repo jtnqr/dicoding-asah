@@ -1,0 +1,26 @@
+export const translations = {
+  en: {
+    appTitle: 'Notes App',
+    login: 'Login',
+    register: 'Register',
+    logout: 'Logout',
+    addNote: 'Add Note',
+    archived: 'Archived Notes',
+    loading: 'Loading...',
+    note: 'Active Notes',
+    darkMode: 'Dark Mode',
+    lightMode: 'Light Mode',
+  },
+  id: {
+    appTitle: 'Aplikasi Catatan',
+    login: 'Masuk',
+    register: 'Daftar',
+    logout: 'Keluar',
+    addNote: 'Tambah Catatan',
+    archived: 'Catatan Terarsip',
+    loading: 'Memuat...',
+    note: 'Catatan Aktif',
+    darkMode: 'Mode Gelap',
+    lightMode: 'Mode Terang',
+  },
+};
