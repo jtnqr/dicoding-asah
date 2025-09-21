@@ -12,9 +12,9 @@ export default function Navbar() {
     const t = translations[locale];
 
     return (
-        <nav className="navbar bg-base-200 shadow-md">
+        <nav className="navbar px-10 bg-base-200 shadow-md">
             <div className="flex-1">
-                <Link to="/" className="btn btn-ghost normal-case text-xl">
+                <Link to="/" className="link link-hover normal-case text-xl font-bold">
                     {t.appTitle}
                 </Link>
             </div>
@@ -37,14 +37,14 @@ export default function Navbar() {
                                 ) : location.pathname.startsWith("/archived") ? (
                                     <li>
                                         <Link to="/notes">
-                                            {t.note}
+                                            {t.activeNotes}
                                         </Link>
                                     </li>
                                 ) : (
                                     <>
                                         <li>
                                             <Link to="/notes">
-                                                {t.note}
+                                                {t.activeNotes}
                                             </Link>
                                         </li>
                                         <li>
@@ -54,7 +54,6 @@ export default function Navbar() {
                                         </li>
                                     </>
                                 )}
-                                {/* <li><Link to="/archived">{t.archived}</Link></li> */}
                                 <li><button onClick={toggleTheme}>{theme === "light" ? `${t.darkMode}` : `${t.lightMode}`}</button></li>
                                 <li><button onClick={toggleLocale}>{locale === "id" ? "Ubah Bahasa" : "Switch Language"}</button></li>
                                 <li><button onClick={logout} className="text-error">{t.logout}</button></li>
@@ -72,19 +71,18 @@ export default function Navbar() {
                 <div className="hidden md:flex gap-2 items-center">
                     {user ? (
                         <>
-                            {/* <Link to="/notes/add" className="btn btn-ghost">{t.addNote}</Link> */}
                             {location.pathname.startsWith("/notes") ? (
                                 <Link to="/archived" className="btn btn-ghost">
                                     {t.archived}
                                 </Link>
                             ) : location.pathname.startsWith("/archived") ? (
                                 <Link to="/notes" className="btn btn-ghost">
-                                    {t.note}
+                                    {t.activeNotes}
                                 </Link>
                             ) : (
                                 <>
                                     <Link to="/notes" className="btn btn-ghost w-18">
-                                        {t.note}
+                                        {t.activeNotes}
                                     </Link>
                                     <Link to="/archived" className="btn btn-ghost w-31">
                                         {t.archived}

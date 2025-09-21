@@ -14,8 +14,6 @@ export default function App() {
   const { initializing } = useContext(AuthContext);
   const { theme } = useContext(ThemeContext);
 
-  // const bgClasses = theme === 'light' ? 'bg-white text-neutral-900' : 'bg-neutral-900 text-white';
-
   useEffect(() => {
     document.documentElement.setAttribute("data-theme", theme);
   }, [theme]);
