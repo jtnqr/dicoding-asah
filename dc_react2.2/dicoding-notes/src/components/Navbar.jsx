@@ -60,14 +60,13 @@ export default function Navbar() {
                             </>
                         ) : (
                             <>
-                                <li><Link to="/login">{t.login}</Link></li>
-                                <li><Link to="/register">{t.register}</Link></li>
+                                <li><button onClick={toggleTheme}>{theme === "light" ? `${t.darkMode}` : `${t.lightMode}`}</button></li>
+                                <li><button onClick={toggleLocale}>{locale === "id" ? "Ubah Bahasa" : "Switch Language"}</button></li>
                             </>
                         )}
                     </ul>
                 </div>
 
-                {/* desktop menu */}
                 <div className="hidden md:flex gap-2 items-center">
                     {user ? (
                         <>
@@ -101,8 +100,12 @@ export default function Navbar() {
                         </>
                     ) : (
                         <>
-                            <Link to="/login" className="btn btn-ghost">{t.login}</Link>
-                            <Link to="/register" className="btn btn-primary text-white">{t.register}</Link>
+                            <button onClick={toggleTheme} className="btn btn-ghost w-18">
+                                {theme === "light" ? "🌞" : "🌙"}
+                            </button>
+                            <button onClick={toggleLocale} className="btn btn-ghost w-18">
+                                {locale === "id" ? "ID" : "EN"}
+                            </button>
                         </>
                     )}
                 </div>

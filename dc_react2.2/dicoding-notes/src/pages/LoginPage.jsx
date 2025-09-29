@@ -1,4 +1,5 @@
 import React, { useState, useContext } from 'react';
+import { Link } from 'react-router-dom';
 import { AuthContext } from '../contexts/AuthContext';
 import { LocaleContext } from '../contexts/LocaleContext';
 import { translations } from '../i18n/translations';
@@ -20,19 +21,44 @@ export default function LoginPage() {
     }
 
     return (
-        <div style={{ padding: 20 }}>
-            <h2>{t.login}</h2>
-            <form onSubmit={onSubmit}>
-                <div>
-                    <label>Email</label>
-                    <input value={email} onChange={(e) => setEmail(e.target.value)} />
+        <div className="max-w-md mx-auto mt-10 p-6 bg-base-200 rounded-xl shadow-md">
+            <h2 className="text-2xl font-bold text-center mb-6">{t.login}</h2>
+            <form onSubmit={onSubmit} className="flex flex-col gap-4">
+                <div className="form-control">
+                    <label className="label" htmlFor="email">
+                        <span className="label-text">Email</span>
+                    </label>
+                    <input
+                        id="email"
+                        type="email"
+                        className="input input-bordered validator"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        required
+                    />
                 </div>
-                <div>
-                    <label>Password</label>
-                    <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
+                <div className="form-control">
+                    <label className="label" htmlFor="password">
+                        <span className="label-text">Password</span>
+                    </label>
+                    <input
+                        id="password"
+                        type="password"
+                        className="input input-bordered"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                        required
+                    />
                 </div>
-                <button type="submit" disabled={loading}>{loading ? t.loading : t.login}</button>
+                <button
+                    type="submit"
+                    disabled={loading}
+                    className="btn btn-primary w-full mt-4"
+                >
+                    {loading ? t.loading : t.login}
+                </button>
             </form>
         </div>
+
     );
 }

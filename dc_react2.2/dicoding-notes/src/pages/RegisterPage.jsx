@@ -1,4 +1,5 @@
 import React, { useState, useContext } from 'react';
+import { Link } from 'react-router-dom';
 import { AuthContext } from '../contexts/AuthContext';
 import { LocaleContext } from '../contexts/LocaleContext';
 import { translations } from '../i18n/translations';
@@ -23,27 +24,70 @@ export default function RegisterPage() {
     }
 
     return (
-        <div style={{ padding: 20 }}>
-            <h2>{t.register}</h2>
-            <form onSubmit={onSubmit}>
-                <div>
-                    <label>Nama</label>
-                    <input value={name} onChange={(e) => setName(e.target.value)} />
+        <div className="flex items-center justify-center min-h-screen bg-base-200">
+            <div className="card w-full max-w-md shadow-2xl bg-base-100">
+                <div className="card-body">
+                    <h2 className="text-2xl font-bold text-center mb-4">{t.register}</h2>
+                    <form onSubmit={onSubmit} className="space-y-4">
+                        <div className="form-control">
+                            <label className="label">
+                                <span className="label-text">Nama</span>
+                            </label>
+                            <input
+                                className="input input-bordered"
+                                value={name}
+                                onChange={(e) => setName(e.target.value)}
+                                required
+                            />
+                        </div>
+                        <div className="form-control">
+                            <label className="label">
+                                <span className="label-text">Email</span>
+                            </label>
+                            <input
+                                type="email"
+                                className="input input-bordered"
+                                value={email}
+                                onChange={(e) => setEmail(e.target.value)}
+                                required
+                            />
+                        </div>
+                        <div className="form-control">
+                            <label className="label">
+                                <span className="label-text">Password</span>
+                            </label>
+                            <input
+                                type="password"
+                                className="input input-bordered"
+                                value={password}
+                                onChange={(e) => setPassword(e.target.value)}
+                                required
+                            />
+                        </div>
+                        <div className="form-control">
+                            <label className="label">
+                                <span className="label-text">Confirm Password</span>
+                            </label>
+                            <input
+                                type="password"
+                                className="input input-bordered"
+                                value={confirm}
+                                onChange={(e) => setConfirm(e.target.value)}
+                                required
+                            />
+                        </div>
+                        <button
+                            type="submit"
+                            disabled={loading}
+                            className="btn btn-primary w-full mt-4"
+                        >
+                            {loading ? t.loading : t.register}
+                        </button>
+                        <Link className='btn btn-soft w-full' to='/login'>{t.login}</Link>
+                    </form>
                 </div>
-                <div>
-                    <label>Email</label>
-                    <input value={email} onChange={(e) => setEmail(e.target.value)} />
-                </div>
-                <div>
-                    <label>Password</label>
-                    <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
-                </div>
-                <div>
-                    <label>Confirm Password</label>
-                    <input type="password" value={confirm} onChange={(e) => setConfirm(e.target.value)} />
-                </div>
-                <button type="submit" disabled={loading}>{loading ? t.loading : t.register}</button>
-            </form>
+            </div>
         </div>
+
     );
 }
