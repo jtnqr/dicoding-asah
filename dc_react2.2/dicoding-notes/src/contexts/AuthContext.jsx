@@ -1,8 +1,13 @@
-import React, { createContext, useState, useEffect } from 'react';
+import React, { createContext, useState, useEffect, useContext } from 'react';
 import { getAccessToken, putAccessToken, getUserLogged, login as apiLogin, register as apiRegister } from '../utils/network-data';
 import { useNavigate } from 'react-router-dom';
 
-export const AuthContext = createContext();
+const AuthContext = createContext();
+
+// eslint-disable-next-line react-refresh/only-export-components
+export const useAuth = () => {
+    return useContext(AuthContext);
+};
 
 export function AuthProvider({ children }) {
     const [user, setUser] = useState(null);
@@ -36,7 +41,6 @@ export function AuthProvider({ children }) {
     async function register(credentials) {
         const { error } = await apiRegister(credentials);
         if (!error) {
-            // after success register, redirect to login
             navigate('/login');
             return true;
         }

@@ -1,5 +1,10 @@
-import React, { createContext, useState, useEffect } from 'react';
-export const LocaleContext = createContext();
+import React, { createContext, useState, useEffect, useContext } from 'react';
+const LocaleContext = createContext();
+
+// eslint-disable-next-line react-refresh/only-export-components
+export const useLocale = () => {
+    return useContext(LocaleContext);
+};
 
 export function LocaleProvider({ children }) {
     const [locale, setLocale] = useState(() => localStorage.getItem('locale') || 'id');

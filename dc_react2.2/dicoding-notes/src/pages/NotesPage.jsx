@@ -1,52 +1,48 @@
-import React, { useContext, useEffect, useState } from 'react';
-import { getActiveNotes, deleteNote } from '../utils/network-data';
-import { AuthContext } from '../contexts/AuthContext';
-import Loading from '../components/Loading';
-import { Link } from 'react-router-dom';
-import { LocaleContext } from '../contexts/LocaleContext';
+import React, { useState, useEffect } from 'react';
+import { getActiveNotes } from '../utils/network-data';
+import { useLocale } from '../contexts/LocaleContext';
 import { translations } from '../i18n/translations';
+import NoteList from '../components/NoteList';
+import AddButton from '../components/AddButton';
+import SearchBar from '../components/SearchBar';
 
 export default function NotesPage() {
-    const { user } = useContext(AuthContext);
-    const { locale } = useContext(LocaleContext);
-    const t = translations[locale];
-
     const [notes, setNotes] = useState([]);
     const [loading, setLoading] = useState(true);
-
-    async function fetchNotes() {
-        setLoading(true);
-        const { error, data } = await getActiveNotes();
-        if (!error) setNotes(data);
-        else setNotes([]);
-        setLoading(false);
-    }
+    const [searchQuery, setSearchQuery] = useState('')
+    const { locale } = useLocale();
+    const t = translations[locale];
 
     useEffect(() => {
-        if (!user) return;
+        async function fetchNotes() {
+            const { error, data } = await getActiveNotes();
+            if (!error && data) {
+                const sortedData = data.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+                setNotes(sortedData);
+            }
+            setLoading(false);
+        }
         fetchNotes();
-        // optionally: poll/refresh when focus
-    }, [user]);
+    }, []);
 
-    async function onDelete(id) {
-        if (!confirm('Delete this note?')) return;
-        await deleteNote(id);
-        fetchNotes();
+    const filteredNotes = notes.filter((note) =>
+        note.title.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+
+    if (!t) return null;
+
+    if (loading) {
+        return <div className="text-center py-16">
+            <span className="loading loading-lg"></span>
+        </div>;
     }
 
-    if (loading) return <Loading label={t.loading} />;
-
     return (
-        <div style={{ padding: 20 }}>
-            <h2>Notes ({notes.length})</h2>
-            <ul>
-                {notes.map(n => (
-                    <li key={n.id} style={{ marginBottom: 10 }}>
-                        <Link to={`/notes/${n.id}`}>{n.title || '(no title)'}</Link>
-                        <button onClick={() => onDelete(n.id)} style={{ marginLeft: 10 }}>Delete</button>
-                    </li>
-                ))}
-            </ul>
+        <div className="py-8">
+            <h2 className="text-3xl font-bold mb-4">{t.activeNotes}</h2>
+            <SearchBar onSearchChange={setSearchQuery} />
+            <NoteList notes={filteredNotes} isSearchResult={searchQuery.length > 0} />
+            <AddButton />
         </div>
     );
 }

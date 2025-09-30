@@ -1,34 +1,46 @@
-import React, { useEffect, useState } from 'react';
-import { getArchivedNotes, unarchiveNote } from '../utils/network-data';
-import Loading from '../components/Loading';
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { getArchivedNotes } from '../utils/network-data';
+import { useLocale } from '../contexts/LocaleContext';
+import { translations } from '../i18n/translations';
+import NoteList from '../components/NoteList';
+import SearchBar from '../components/SearchBar';
 
 export default function ArchivedPage() {
     const [notes, setNotes] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [searchQuery, setSearchQuery] = useState('');
+    const { locale } = useLocale();
+    const t = translations[locale];
 
-    async function fetchNotes() {
-        setLoading(true);
-        const { error, data } = await getArchivedNotes();
-        if (!error) setNotes(data);
-        setLoading(false);
+    useEffect(() => {
+        async function fetchNotes() {
+            const { error, data } = await getArchivedNotes();
+            if (!error && data) {
+                const sortedData = data.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+                setNotes(sortedData);
+            }
+            setLoading(false);
+        }
+        fetchNotes();
+    }, []);
+
+    const filteredNotes = notes.filter((note) =>
+        note.title.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+
+    if (!t) return null;
+
+    if (loading) {
+        return <div className="text-center py-16">
+            <span className="loading loading-lg"></span>
+        </div>;
     }
 
-    useEffect(() => { fetchNotes(); }, []);
-
-    if (loading) return <Loading />;
-
     return (
-        <div style={{ padding: 20 }}>
-            <h2>Archived Notes</h2>
-            <ul>
-                {notes.map(n => (
-                    <li key={n.id}>
-                        <Link to={`/notes/${n.id}`}>{n.title}</Link>
-                        <button onClick={async () => { await unarchiveNote(n.id); fetchNotes(); }} style={{ marginLeft: 10 }}>Unarchive</button>
-                    </li>
-                ))}
-            </ul>
+        <div className="py-8">
+            <h2 className="text-3xl font-bold mb-4">{t.archivedNotes}</h2>
+            <SearchBar onSearchChange={setSearchQuery} />
+            <NoteList notes={filteredNotes} isSearchResult={searchQuery.length > 0} />
         </div>
     );
 }
